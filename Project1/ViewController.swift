@@ -51,27 +51,28 @@ private extension ViewController {
     
     func setUpConstrains() {
         redView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(3)
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3)
         }
         
         greenView.snp.makeConstraints { make in
-            make.top.equalTo(redView.snp.bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(redView.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(3) //multiplied(0.33)
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3) //multiplied(0.33)
         }
         
         yellowView.snp.makeConstraints { make in
-            make.top.equalTo(greenView.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(greenView.snp.trailing)
             make.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3) //multiplied(0.33)
         }
         
     }
