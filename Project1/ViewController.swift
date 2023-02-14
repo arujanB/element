@@ -28,6 +28,9 @@ final class ViewController: UIViewController {
         return view
     }()
     
+    //biggerView is empty, because of that we do not create, like say, constraint
+    private lazy var biggerView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -41,38 +44,63 @@ final class ViewController: UIViewController {
 
 //MARK: - Setup views and constrains
 
+// the code where`ve commented, are correct. But they work without var biggerView!!!
 private extension ViewController {
     func setUpView() {
-        view.addSubview(redView)
-        view.addSubview(greenView)
+//        view.addSubview(redView)
+//        view.addSubview(greenView)
+//        view.addSubview(yellowView)
+        
+        view.addSubview(biggerView)
+        biggerView.addSubview(redView)
+        biggerView.addSubview(greenView)
         view.addSubview(yellowView)
         
     }
     
     func setUpConstrains() {
-        redView.snp.makeConstraints { make in
+        biggerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.trailing.equalToSuperview()
             
-            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3)
+            make.height.equalToSuperview().dividedBy(2)
+        }
+        
+        redView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+//            make.leading.equalToSuperview()
+//
+//            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(2)
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(2)
+            
+            make.top.bottom.leading.equalToSuperview()
+            
+            make.width.equalToSuperview().dividedBy(2)
         }
         
         greenView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(redView.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+//            make.leading.equalTo(redView.snp.trailing)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(2)
             
-            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3) //multiplied(0.33)
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(redView.snp.trailing)
+            make.trailing.equalToSuperview()
+            
         }
         
         yellowView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(greenView.snp.trailing)
-            make.trailing.equalToSuperview()
+//            make.top.equalTo(greenView.snp.bottom)
+//            make.leading.trailing.equalToSuperview()
+//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            
+            make.top.equalTo(biggerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             
-            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(3) //multiplied(0.33)
         }
         
     }
