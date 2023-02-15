@@ -10,36 +10,52 @@ import SnapKit
 
 final class ViewController: UIViewController {
     
-    private lazy var redView: UIView = {
-        var view = UIView()
-        view.backgroundColor = .systemRed
-        return view
+    private lazy var myLabel: UILabel = {
+        var label = UILabel()
+        label.text = "I am rich"
+        label.textColor = .darkGray
+        label.font = UIFont.boldSystemFont(ofSize: 70)
+        return label
     }()
     
-    private lazy var greenView: UIView = {
-        var view = UIView()
-        view.backgroundColor = .systemGreen
-        return view
+    private lazy var image: UIImageView = {
+        var img = UIImageView()
+        img.image = UIImage(named: "diamond")
+        return img
     }()
     
-    private lazy var yellowView: UIView = {
-        var view = UIView()
-        view.backgroundColor = .systemYellow
-        return view
+    private lazy var myAccountLabel: UILabel = {
+        var number = Int.random(in: 100..<100000)
+        var account = UILabel()
+        account.text = "Account: \(Int.random(in: 100..<100000))$"
+        account.textColor = .white
+        account.font = UIFont.systemFont(ofSize: 40)
+        return account
     }()
-    
-    //biggerView is empty, because of that we do not create, like say, constraint
-    private lazy var biggerView = UIView()
+
+    private lazy var button: UIButton = {
+        var button = UIButton()
+        button.setTitle("Change", for: .normal)
+        button.backgroundColor = .blue
+        button.setTitleColor(.systemPink, for: .normal)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(changeAccountNumber), for: .touchUpInside)
+//        button.add
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .systemBlue                     //here can write without SELF
+        self.view.backgroundColor = .green                     //here can write without SELF
         
         setUpView()
         setUpConstrains()
     }
 
+    @objc func changeAccountNumber() {
+        myAccountLabel.text = "Account: \(Int.random(in: 100..<100000))$"
+    }
 }
 
 //MARK: - Setup views and constrains
@@ -47,60 +63,41 @@ final class ViewController: UIViewController {
 // the code where`ve commented, are correct. But they work without var biggerView!!!
 private extension ViewController {
     func setUpView() {
-//        view.addSubview(redView)
-//        view.addSubview(greenView)
-//        view.addSubview(yellowView)
-        
-        view.addSubview(biggerView)
-        biggerView.addSubview(redView)
-        biggerView.addSubview(greenView)
-        view.addSubview(yellowView)
-        
+        view.addSubview(myLabel)
+        view.addSubview(image)
+        view.addSubview(myAccountLabel)
+        view.addSubview(button)
     }
     
     func setUpConstrains() {
-        biggerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+        myLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+//            make.centerY.equalToSuperview().multipliedBy(0.30)
             
-            make.height.equalToSuperview().dividedBy(2)
-        }
-        
-        redView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-//            make.leading.equalToSuperview()
-//
-//            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).dividedBy(2)
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(2)
-            
-            make.top.bottom.leading.equalToSuperview()
-            
-            make.width.equalToSuperview().dividedBy(2)
-        }
-        
-        greenView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-//            make.leading.equalTo(redView.snp.trailing)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).dividedBy(2)
-            
-            make.top.bottom.equalToSuperview()
-            make.leading.equalTo(redView.snp.trailing)
-            make.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).multipliedBy(3)
+//            //make.height.equalToSuperview().multipliedBy(0.44)
             
         }
         
-        yellowView.snp.makeConstraints { make in
-//            make.top.equalTo(greenView.snp.bottom)
-//            make.leading.trailing.equalToSuperview()
-//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        image.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+//            make.centerY.equalToSuperview().multipliedBy(0.80)
+
+            make.top.equalTo(myLabel.snp.bottom).multipliedBy(1.2)
+        }
+        
+        myAccountLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
             
-            make.top.equalTo(biggerView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(image.snp.bottom).multipliedBy(1.2)
+        }
+        
+        button.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(30)
+            make.centerX.equalToSuperview()
             
+            make.width.equalToSuperview().dividedBy(4)
+            make.height.equalToSuperview().dividedBy(14)
         }
         
     }
