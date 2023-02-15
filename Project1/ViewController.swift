@@ -34,13 +34,13 @@ final class ViewController: UIViewController {
     }()
 
     private lazy var button: UIButton = {
-        var button = UIButton()
-        button.setTitle("Change", for: .normal)
-        button.backgroundColor = .blue
-        button.setTitleColor(.systemPink, for: .normal)
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(changeAccountNumber), for: .touchUpInside)
-//        button.add
+        var button = UIButton(type: .system)
+        button.setTitle("Change", for: .normal)                                 //text into button
+        button.backgroundColor = .blue                                          //background color of button
+        button.setTitleColor(.white, for: .normal)                              //hovering when you indicate to the button
+        button.layer.cornerRadius = 10                                          //like circle
+        button.addTarget(self, action: #selector(changeAccountNumber), for: .touchUpInside) //giveAction
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)             //size of text, which located into text
         return button
     }()
     
