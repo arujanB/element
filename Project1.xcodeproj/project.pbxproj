@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DA14663FAAE4307679CCF04 /* Pods_Project1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B1D5E476B32EB81C82F89A /* Pods_Project1.framework */; };
+		844E49B6299E9491005DC706 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E49B5299E9491005DC706 /* MyTableViewCell.swift */; };
 		847A9ACB29956E3A00DD972A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A9ACA29956E3A00DD972A /* AppDelegate.swift */; };
 		847A9ACD29956E3A00DD972A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A9ACC29956E3A00DD972A /* SceneDelegate.swift */; };
 		847A9ACF29956E3A00DD972A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A9ACE29956E3A00DD972A /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		844E49B5299E9491005DC706 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		847A9AC729956E3A00DD972A /* Project1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847A9ACA29956E3A00DD972A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847A9ACC29956E3A00DD972A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +51,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		844E49B7299E949A005DC706 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				847A9ACE29956E3A00DD972A /* ViewController.swift */,
+				844E49B5299E9491005DC706 /* MyTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		847A9ABE29956E3A00DD972A = {
 			isa = PBXGroup;
 			children = (
@@ -72,7 +83,7 @@
 			children = (
 				847A9ACA29956E3A00DD972A /* AppDelegate.swift */,
 				847A9ACC29956E3A00DD972A /* SceneDelegate.swift */,
-				847A9ACE29956E3A00DD972A /* ViewController.swift */,
+				844E49B7299E949A005DC706 /* View */,
 				847A9AD329956E3F00DD972A /* Assets.xcassets */,
 				847A9AD529956E3F00DD972A /* LaunchScreen.storyboard */,
 				847A9AD829956E3F00DD972A /* Info.plist */,
@@ -202,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				847A9ACF29956E3A00DD972A /* ViewController.swift in Sources */,
+				844E49B6299E9491005DC706 /* MyTableViewCell.swift in Sources */,
 				847A9ACB29956E3A00DD972A /* AppDelegate.swift in Sources */,
 				847A9ACD29956E3A00DD972A /* SceneDelegate.swift in Sources */,
 			);
