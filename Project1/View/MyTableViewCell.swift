@@ -8,6 +8,8 @@
 import UIKit
 
 class MyTableViewCell: UITableViewCell {
+    
+    static let IDENTIFIER = "MyTableViewCell"
 
     private lazy var myText: UILabel = {
         let myLabel = UILabel()

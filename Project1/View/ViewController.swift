@@ -10,10 +10,12 @@ import SnapKit
 
 final class ViewController: UIViewController {
     
-    private let myTextItem: [String] = ["Text1", "Text2", "Text3", "Text4", "Text5"]
+    private let myTextItem: [[String]] = [["Product","Product","Product","Product","Product"], ["Product","Product"], ["Product","Product","Product"]]
+    private let myTitles: [String] = ["Title1", "Title2", "Title3"]
     
     private lazy var myTableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.IDENTIFIER)
         tableView.backgroundColor = .systemBlue
         return tableView
     }()
@@ -36,19 +38,31 @@ final class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     
+    //For title
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return myTitles.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return myTitles[section]
+    }
+    
+    // For text
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myTextItem.count
+        return myTextItem[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MyTableViewCell()
-        cell.setText(with: "\(indexPath.row + 1)) \(myTextItem[indexPath.row])")
+        let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.IDENTIFIER, for: indexPath) as! MyTableViewCell
+        cell.setText(with: myTextItem[indexPath.section][indexPath.row])
         cell.backgroundColor = .yellow
         return cell
     }
     
     
 }
+
+//MARK: - TableView Delegate
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,3 +88,29 @@ private extension ViewController {
     
     
 }
+
+//Important about protocol
+
+/*
+ 
+ protocol MyProtocol{
+    func mustNeedToImplement()
+    func noNeedToImplement()
+ }
+ extension MyProtocol{
+    func noNeedToImplement() {
+        print("By Default this one will be shown!!!")
+    }
+ }
+ 
+ struct ProtocolStruct {
+    func mustNeedToImplement() {
+        print("Print Hello")
+    }
+ }
+ 
+ let stuctProtocol = StructProtocol()
+ stuctProtocol.mustNeedToImplement() // show: Print Hello
+ stuctProtocol.noNeedToImplement // show: By Default this one will be shown!!! (because we add it in extention!)
+ 
+ */
