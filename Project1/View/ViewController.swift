@@ -10,25 +10,35 @@ import SnapKit
 
 final class ViewController: UIViewController {
     
-    private let myTextItem: [[String]] = [["Product","Product","Product","Product","Product"], ["Product","Product"], ["Product","Product","Product"]]
-    private let myTitles: [String] = ["Title1", "Title2", "Title3"]
+    private let mySections: [String] = ["Drinks", "Cakes", "FastFoods"]
+    private let labels:[[String]] = [["CocaCola", "Fanta", "Sprite"], ["CupCake", "Birthday Cake"], ["Humburger", "Pizza", "Sandwich", "Chips", "Pizza", "Sandwich"]]
+    private let price: [[Int]] = [[123,45,54],[434,6],[43,765,97,100, 345, 68]]
+    private let images: [[String]] = [["cocacola", "fanta", "sprite"], ["cupcake", "birthdaycake"], ["burger", "bread", "sandwich", "chips", "bread", "sandwich"]]
     
-    private lazy var myTableView: UITableView = {
+    private let myLabel: UILabel = {
+        let name = UILabel()
+        name.text = "Magnum"
+        name.font = UIFont.boldSystemFont(ofSize: 50)
+//        name.textAlignment = .center
+        return name
+    }()
+    
+    private let productTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.IDENTIFIER)
-        tableView.backgroundColor = .systemBlue
+        tableView.backgroundColor = .systemPink
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        myTableView.dataSource = self
-        myTableView.delegate = self
+        view.backgroundColor = .white
+
+        productTableView.dataSource = self
+        productTableView.delegate = self
         
-        self.view.backgroundColor = .green                     //here can write without SELF
-        
-        setUpView()
+        setUpViews()
         setUpConstrains()
     }
     
@@ -36,26 +46,26 @@ final class ViewController: UIViewController {
 
 //MARK: - TableView DataSource
 
-extension ViewController: UITableViewDataSource {
-    
-    //For title
+extension ViewController: UITableViewDataSource{
+    // section
     func numberOfSections(in tableView: UITableView) -> Int {
-        return myTitles.count
+        return mySections.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return myTitles[section]
+        return mySections[section]
     }
     
-    // For text
+    // cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myTextItem[section].count
+        return labels[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.IDENTIFIER, for: indexPath) as! MyTableViewCell
-        cell.setText(with: myTextItem[indexPath.section][indexPath.row])
-        cell.backgroundColor = .yellow
+        cell.setTitle(title: labels[indexPath.section][indexPath.row])
+        cell.setPrice(number: price[indexPath.section][indexPath.row])
+        cell.setImg(img: images[indexPath.section][indexPath.row])
         return cell
     }
     
@@ -66,7 +76,7 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 70
     }
 }
 
@@ -74,43 +84,23 @@ extension ViewController: UITableViewDelegate {
 //MARK: - Setup views and constrains
 
 private extension ViewController {
-    func setUpView() {
-        view.addSubview(myTableView)
+    func setUpViews() {
+        view.addSubview(myLabel)
+        view.addSubview(productTableView)
     }
     
     func setUpConstrains() {
-        myTableView.snp.makeConstraints { make in
+        myLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(10)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
+        
+        productTableView.snp.makeConstraints { make in
+            make.top.equalTo(myLabel.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
     }
-    
     
 }
-
-//Important about protocol
-
-/*
- 
- protocol MyProtocol{
-    func mustNeedToImplement()
-    func noNeedToImplement()
- }
- extension MyProtocol{
-    func noNeedToImplement() {
-        print("By Default this one will be shown!!!")
-    }
- }
- 
- struct ProtocolStruct {
-    func mustNeedToImplement() {
-        print("Print Hello")
-    }
- }
- 
- let stuctProtocol = StructProtocol()
- stuctProtocol.mustNeedToImplement() // show: Print Hello
- stuctProtocol.noNeedToImplement // show: By Default this one will be shown!!! (because we add it in extention!)
- 
- */
