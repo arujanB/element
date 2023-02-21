@@ -9,59 +9,95 @@ import UIKit
 import SnapKit
 
 final class ViewController: UIViewController {
-    
+    //MARK: - View Labels
     private lazy var biggerViewBlack = UIView()
-    
-    private lazy var biggerViewNumbers = UIView()
-    
     private lazy var myLabel: UILabel = {
         var label = UILabel()
         label.text = "0"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 100)
+        label.textAlignment = .right
         return label
     }()
-    
     private var myColor: UIColor = UIColor(red: 233, green: 232, blue: 232, alpha: 1)
     
-    private lazy var numbersBiggerViewDelete = UIView()
-    private lazy var buttonAC: UIButton = createButton(number: "AC", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonSlash: UIButton = createButton(number: "+/-", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonPersent: UIButton = createButton(number: "%", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonDivided: UIButton = createButton(number: "/", backgroundColor: .orange, titleColor: .white)
-    
-    
-    private lazy var numbersBiggerViewSeven = UIView()
-    private lazy var button7: UIButton = createButton(number: "7", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button8: UIButton = createButton(number: "8", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button9: UIButton = createButton(number: "9", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonX: UIButton = createButton(number: "x", backgroundColor: .orange, titleColor: .white)
+    private lazy var buttonAC: UIButton = createButton(labelOfButton: "AC", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonSlash: UIButton = createButton(labelOfButton: "+/-", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonPersent: UIButton = createButton(labelOfButton: "%", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonDivided: UIButton = createButton(labelOfButton: "/", backgroundColor: .orange, titleColor: .white)
+    private lazy var button7: UIButton = createButton(labelOfButton: "7", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button8: UIButton = createButton(labelOfButton: "8", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button9: UIButton = createButton(labelOfButton: "9", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonX: UIButton = createButton(labelOfButton: "x", backgroundColor: .orange, titleColor: .white)
+    private lazy var button4: UIButton = createButton(labelOfButton: "4", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button5: UIButton = createButton(labelOfButton: "5", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button6: UIButton = createButton(labelOfButton: "6", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonMinus: UIButton = createButton(labelOfButton: "-", backgroundColor: .orange, titleColor: .white)
+    private lazy var button1: UIButton = createButton(labelOfButton: "1", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button2: UIButton = createButton(labelOfButton: "2", backgroundColor: myColor, titleColor: .gray)
+    private lazy var button3: UIButton = createButton(labelOfButton: "3", backgroundColor: myColor, titleColor: .gray)
+    private lazy var buttonPlus: UIButton = createButton(labelOfButton: "+", backgroundColor: .orange, titleColor: .white)
+    private lazy var button0: UIButton = createButton(labelOfButton: "0", backgroundColor: UIColor(red: 233, green: 232, blue: 232, alpha: 1), titleColor: .gray)
+    private lazy var buttonDot: UIButton = createButton(labelOfButton: ".", backgroundColor: UIColor(red: 233, green: 232, blue: 232, alpha: 1), titleColor: .gray)
+    private lazy var buttonEqual: UIButton = createButton(labelOfButton: "=", backgroundColor: .orange, titleColor: .white)
 
     
-    private lazy var numbersBiggerViewFour = UIView()
-    private lazy var button4: UIButton = createButton(number: "4", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button5: UIButton = createButton(number: "5", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button6: UIButton = createButton(number: "6", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonMinus: UIButton = createButton(number: "-", backgroundColor: .orange, titleColor: .white)
+//MARK: - StackView
+    private lazy var stackViewAC: UIStackView = stackViewButton(firstBtn: buttonAC, secondBtn: buttonSlash, thirdBtn: buttonPersent, forthBtn: buttonDivided)
+    private lazy var stackView7:UIStackView = stackViewButton(firstBtn: button7, secondBtn: button8, thirdBtn: button9, forthBtn: buttonX)
+    private lazy var stackView4:UIStackView = stackViewButton(firstBtn: button4, secondBtn: button5, thirdBtn: button6, forthBtn: buttonMinus)
+    private lazy var stackView1:UIStackView = stackViewButton(firstBtn: button1, secondBtn: button2, thirdBtn: button3, forthBtn: buttonPlus)
     
-
-    private lazy var numbersBiggerViewOne = UIView()
-    private lazy var button1: UIButton = createButton(number: "1", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button2: UIButton = createButton(number: "2", backgroundColor: myColor, titleColor: .gray)
-    private lazy var button3: UIButton = createButton(number: "3", backgroundColor: myColor, titleColor: .gray)
-    private lazy var buttonPlus: UIButton = createButton(number: "+", backgroundColor: .orange, titleColor: .white)
-
+    private lazy var stackViewDot: UIStackView = {
+        var stackView = UIStackView()
+        stackView.addArrangedSubview(buttonDot)
+        stackView.addArrangedSubview(buttonEqual)
+        
+        stackView.spacing = 5
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    private lazy var stackView0: UIStackView = {
+        var stackView = UIStackView()
+        stackView.addArrangedSubview(button0)
+        stackView.addArrangedSubview(stackViewDot)
+        
+        stackView.spacing = 5
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    private lazy var stackViewNumbers: UIStackView = {
+        var stackView = UIStackView()
+        stackView.addArrangedSubview(stackViewAC)
+        stackView.addArrangedSubview(stackView7)
+        stackView.addArrangedSubview(stackView4)
+        stackView.addArrangedSubview(stackView1)
+        stackView.addArrangedSubview(stackView0)
+        
+        stackView.spacing = 5
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+    
+    private lazy var stackViewMommy:UIStackView = {
+        var stackView = UIStackView()
+        stackView.addArrangedSubview(biggerViewBlack)
+        stackView.addArrangedSubview(stackViewNumbers)
+        
+        stackView.spacing = 5
+        stackView.axis = .vertical
+//        stackView.distribution = .fillEqually
+        return stackView
+    }()
     
     
-    private lazy var numbersBiggerView0 = UIView()
-    private lazy var numbersBiggerViewDot = UIView()
-    private lazy var button0: UIButton = createButton(number: "0", backgroundColor: UIColor(red: 233, green: 232, blue: 232, alpha: 1), titleColor: .gray)
-    
-    private lazy var buttonDot: UIButton = createButton(number: ".", backgroundColor: UIColor(red: 233, green: 232, blue: 232, alpha: 1), titleColor: .gray)
-    
-    private lazy var buttonEqual: UIButton = createButton(number: "=", backgroundColor: .orange, titleColor: .white)
-    
-    
+//MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -71,154 +107,10 @@ final class ViewController: UIViewController {
         setUPConstrains()
     }
     
-}
-
-//MARK: - SetUpView and SetUPConstrains
-
-private extension ViewController {
-    func setUpView() {
-        view.addSubview(biggerViewBlack)
-        view.addSubview(biggerViewNumbers)
-        
-        biggerViewBlack.addSubview(myLabel)
-    
-        
-        
-        biggerViewNumbers.addSubview(numbersBiggerViewDelete)
-        
-        numbersBiggerViewDelete.addSubview(buttonAC)
-        numbersBiggerViewDelete.addSubview(buttonSlash)
-        numbersBiggerViewDelete.addSubview(buttonPersent)
-        numbersBiggerViewDelete.addSubview(buttonDivided)
-        
-        
-        biggerViewNumbers.addSubview(numbersBiggerViewSeven)
-        
-        numbersBiggerViewSeven.addSubview(button7)
-        numbersBiggerViewSeven.addSubview(button8)
-        numbersBiggerViewSeven.addSubview(button9)
-        numbersBiggerViewSeven.addSubview(buttonX)
-        
-        
-        biggerViewNumbers.addSubview(numbersBiggerViewFour)
-        
-        numbersBiggerViewFour.addSubview(button4)
-        numbersBiggerViewFour.addSubview(button5)
-        numbersBiggerViewFour.addSubview(button6)
-        numbersBiggerViewFour.addSubview(buttonMinus)
-        
-        
-        biggerViewNumbers.addSubview(numbersBiggerViewOne)
-        
-        numbersBiggerViewOne.addSubview(button1)
-        numbersBiggerViewOne.addSubview(button2)
-        numbersBiggerViewOne.addSubview(button3)
-        numbersBiggerViewOne.addSubview(buttonPlus)
-        
-        
-        biggerViewNumbers.addSubview(numbersBiggerView0)
-        
-        numbersBiggerView0.addSubview(button0)
-        numbersBiggerView0.addSubview(numbersBiggerViewDot)
-        
-        numbersBiggerViewDot.addSubview(buttonDot)
-        numbersBiggerViewDot.addSubview(buttonEqual)
-    }
-    
-    
-    
-    func setUPConstrains() {
-        biggerViewBlack.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
-        }
-        
-        biggerViewNumbers.snp.makeConstraints { make in
-            make.top.equalTo(biggerViewBlack.snp.bottom)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-        }
-        
-        myLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().multipliedBy(1.8)
-            make.centerY.equalToSuperview().multipliedBy(1.3)
-        }
-        
-        
-        
-        numbersBiggerViewDelete.snp.makeConstraints { make in
-            make.height.equalToSuperview().dividedBy(5)
-            make.width.equalToSuperview()
-        }
-        setUpButton(firstBtn: buttonAC, secondBtn: buttonSlash, thirdBtn: buttonPersent, forthBtn: buttonDivided)
-        
-        
-        numbersBiggerViewSeven.snp.makeConstraints { make in
-            make.height.equalToSuperview().dividedBy(5)
-            make.width.equalToSuperview()
-            
-            make.top.equalTo(numbersBiggerViewDelete.snp.bottom)
-        }
-        setUpButton(firstBtn: button7, secondBtn: button8, thirdBtn: button9, forthBtn: buttonX)
-        
-        
-        numbersBiggerViewFour.snp.makeConstraints { make in
-            make.height.equalToSuperview().dividedBy(5)
-            make.width.equalToSuperview()
-            
-            make.top.equalTo(numbersBiggerViewSeven.snp.bottom)
-        }
-        setUpButton(firstBtn: button4, secondBtn: button5, thirdBtn: button6, forthBtn: buttonMinus)
-        
-        
-        numbersBiggerViewOne.snp.makeConstraints { make in
-            make.height.equalToSuperview().dividedBy(5)
-            make.width.equalToSuperview()
-            
-            make.top.equalTo(numbersBiggerViewFour.snp.bottom)
-        }
-        setUpButton(firstBtn: button1, secondBtn: button2, thirdBtn: button3, forthBtn: buttonPlus)
-        
-        
-        
-        numbersBiggerView0.snp.makeConstraints { make in
-            make.height.equalToSuperview().dividedBy(5)
-            make.width.equalToSuperview()
-            
-            make.top.equalTo(numbersBiggerViewOne.snp.bottom)
-        }
-        
-        button0.snp.makeConstraints { make in
-            make.width.equalToSuperview().dividedBy(2)
-            make.height.equalToSuperview()
-        }
-        numbersBiggerViewDot.snp.makeConstraints { make in
-            make.leading.equalTo(button0.snp.trailing)
-            make.width.equalToSuperview().dividedBy(2)
-            make.height.equalToSuperview()
-        }
-        buttonDot.snp.makeConstraints { make in
-            make.width.equalToSuperview().dividedBy(2)
-            make.height.equalToSuperview()
-        }
-        buttonEqual.snp.makeConstraints { make in
-            make.leading.equalTo(buttonDot.snp.trailing)
-            make.width.equalToSuperview().dividedBy(2)
-            make.height.equalToSuperview()
-        }
-    }
-    
-}
-
-//MARK: - Function menthod of the Buttons
-extension ViewController {
-    func createButton(number: String, backgroundColor color: UIColor, titleColor: UIColor) -> UIButton {
+//MARK: - Function menthod for the Buttons
+    func createButton(labelOfButton: String, backgroundColor color: UIColor, titleColor: UIColor) -> UIButton {
         let button = UIButton(type: .system)
-        button.setTitle(number, for: .normal)
+        button.setTitle(labelOfButton, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
             
         button.backgroundColor = color
@@ -229,30 +121,68 @@ extension ViewController {
 //        button.layer.cornerRadius = 20
         return button
     }
-}
-
-//MARK: - SetUpButton Constrains
-extension ViewController {
-    func setUpButton(firstBtn: UIButton, secondBtn: UIButton, thirdBtn: UIButton, forthBtn: UIButton) {
-        firstBtn.snp.makeConstraints { make in
-            make.width.equalToSuperview().dividedBy(4)
-            make.height.equalToSuperview()
-        }
-        secondBtn.snp.makeConstraints { make in
-            make.leading.equalTo(firstBtn.snp.trailing)
-            make.width.equalToSuperview().dividedBy(4)
-            make.height.equalToSuperview()
-        }
-        thirdBtn.snp.makeConstraints { make in
-            make.leading.equalTo(secondBtn.snp.trailing)
-            make.width.equalToSuperview().dividedBy(4)
-            make.height.equalToSuperview()
-        }
-        forthBtn.snp.makeConstraints { make in
-            make.leading.equalTo(thirdBtn.snp.trailing)
-            make.width.equalToSuperview().dividedBy(4)
-            make.height.equalToSuperview()
-        }
+    
+//MARK: - StackView function for BUTTON
+    func stackViewButton(firstBtn: UIButton, secondBtn: UIButton, thirdBtn: UIButton, forthBtn: UIButton) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(firstBtn)
+        stackView.addArrangedSubview(secondBtn)
+        stackView.addArrangedSubview(thirdBtn)
+        stackView.addArrangedSubview(forthBtn)
+        
+        stackView.spacing = 5
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        
+        return stackView
     }
     
 }
+
+//MARK: - SetUpView and SetUPConstrains
+
+private extension ViewController {
+    func setUpView() {
+        view.addSubview(stackViewMommy)
+        biggerViewBlack.addSubview(myLabel)
+    }
+    
+    func setUPConstrains() {
+        biggerViewBlack.snp.makeConstraints { make in
+            make.height.equalToSuperview().multipliedBy(0.25)
+        }
+        
+        myLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().inset(15)
+        }
+        
+        stackViewMommy.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            make.size.equalTo(view.snp.size)
+        }
+        
+    }
+    
+}
+
+/*
+ 
+ // make centerX = superview.centerX + 5, centerY = superview.centerY + 5
+ make.center.equalTo(superview).offset(5)
+ 
+ // make top = superview.top + 5, left = superview.left + 10, bottom = superview.bottom - 15, right = superview.right - 20
+ make.edges.equalTo(superview).inset(UIEdgeInsets(top: 5, left: 10, bottom: 15, right: 20))
+ 
+ //.labeled - allows you to specify constraint labels for debug logs
+ make.top.equalTo(otherView).labeled("buttonViewTopConstraint")
+ Answer:
+ "<SnapKit.LayoutConstraint:buttonViewTopConstraint@SignUpViewController.swift#311
+ UIView:0x7fd98491e4c0.leading == UIView:0x7fd983633880.leading>"
+
+ make.size.equalTo(CGSize(width: 50, height: 100))
+ 
+ */
