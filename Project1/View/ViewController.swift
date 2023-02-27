@@ -11,14 +11,12 @@ import SnapKit
 final class ViewController: UIViewController {
     
     private let mySections: [String] = ["Drinks", "Cakes", "FastFoods"]
-    private let labels:[[String]] = [["CocaCola", "Fanta", "Sprite"], ["CupCake", "Birthday Cake"], ["Humburger", "Pizza", "Sandwich", "Chips", "Pizza", "Sandwich"]]
-    private let price: [[Int]] = [[123,45,54],[434,6],[43,765,97,100, 345, 68]]
-    private let images: [[String]] = [["cocacola", "fanta", "sprite"], ["cupcake", "birthdaycake"], ["burger", "bread", "sandwich", "chips", "bread", "sandwich"]]
     
     private let myLabel: UILabel = {
         let name = UILabel()
         name.text = "Magnum"
         name.font = UIFont.boldSystemFont(ofSize: 50)
+        name.textColor = .label
 //        name.textAlignment = .center
         return name
     }()
@@ -27,13 +25,17 @@ final class ViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.IDENTIFIER)
         tableView.backgroundColor = .systemPink
+        
+//        tableView.separatorStyle = .none // it give delete the lines where in tableView
+//        tableView.allowsSelection = false // when you select a row it won`t be bilnk
+//        tableView.showsVerticalScrollIndicator = false // it deleted the line where you can see where are you in the code
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         productTableView.dataSource = self
         productTableView.delegate = self
@@ -58,14 +60,35 @@ extension ViewController: UITableViewDataSource{
     
     // cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labels[section].count
+//        return labels[section].count
+        var result = 0
+        for i in DatabaseModel.array {
+            if i.section == mySections[section] {
+                result += 1
+            }
+        }
+        
+        return result
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.IDENTIFIER, for: indexPath) as! MyTableViewCell
-        cell.setTitle(title: labels[indexPath.section][indexPath.row])
-        cell.setPrice(number: price[indexPath.section][indexPath.row])
-        cell.setImg(img: images[indexPath.section][indexPath.row])
+        var result = 0
+        for i in DatabaseModel.array {
+            if i.section == mySections[indexPath.section] {
+                cell.setStruct(with: DatabaseModel.array[result + indexPath.row])
+            }
+        }
+        
+//        if mySections[indexPath.section] == "Drinks" {
+//            cell.setStruct(with: DatabaseModel.array[indexPath.row])
+//        }else if(mySections[indexPath.section] == "Cakes"){
+//            cell.setStruct(with: DatabaseModel.array[indexPath.row])
+//        }else {
+//            cell.setStruct(with: DatabaseModel.array[indexPath.row])
+//        }
+        
         return cell
     }
     

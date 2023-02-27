@@ -29,6 +29,10 @@ class MyTableViewCell: UITableViewCell {
     private lazy var myImg: UIImageView = {
         var img = UIImageView()
         img.image = UIImage(named: "bread")
+        
+        img.layer.cornerRadius = 10 //it works with maskToBounds /*do not forget it to use*/
+        img.layer.masksToBounds = true
+        
         return img
     }()
     
@@ -53,6 +57,12 @@ class MyTableViewCell: UITableViewCell {
     
     func setImg(img: String) {
         myImg.image = UIImage(named: img)
+    }
+    
+    func setStruct(with infoStruct: InfoMeal) {
+        myTitle.text = infoStruct.name
+        myPrice.text = "\(infoStruct.price)$"
+        myImg.image = UIImage(named: infoStruct.img)
     }
 }
 
