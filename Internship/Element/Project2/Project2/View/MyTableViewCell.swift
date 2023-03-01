@@ -29,6 +29,7 @@ class MyTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         itemCollectionView.dataSource = self
+        itemCollectionView.delegate = self
         
         setUpViews()
         setUpConstrains()
@@ -47,12 +48,22 @@ extension MyTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.IDENTIFIER, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.IDENTIFIER, for: indexPath) as! MyCollectionViewCell
         cell.layer.cornerRadius = 15
         cell.layer.masksToBounds = true
+        
+//        cell.setText(with: "\(Int.random(in: 0..<10))")
         return cell
     }
     
+}
+
+//MARK: - CollectionView Delegat
+extension MyTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! MyCollectionViewCell
+        cell.setText(with: "\(Int.random(in: 0..<10))")
+    }
 }
 
 //MARK: - SetUpViews & setUpConstrains

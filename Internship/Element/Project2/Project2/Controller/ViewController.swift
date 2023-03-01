@@ -44,7 +44,7 @@ extension ViewController: UITableViewDataSource {
         return sectionsTitle[section]
     }
     
-    //Sectio (Title) Change 2 ways:
+    //Section (Title) Change 2 ways:
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let view = SetionHeaderView()
