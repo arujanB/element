@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class MainViewController: UITabBarController {
 
@@ -14,7 +15,7 @@ final class MainViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = .cyan
+        view.backgroundColor = .white
         let vc1 = UINavigationController(rootViewController: MovieViewController())
         let vc2 = UINavigationController(rootViewController: PlaceViewController())
         let vc3 = UINavigationController(rootViewController: TicketViewController())

@@ -6,5 +6,7 @@ target 'Kino KZ' do
   use_frameworks!
 
   # Pods for Kino KZ
-pod 'SnapKit'
+   pod 'SnapKit'
+   pod 'Kingfisher'
+
 end
